@@ -4,7 +4,7 @@ import express from 'express';
 const app = express();
 const port = 8080;
 
-app.use(express.static('assets'));
+app.use(express.static('static'));
 
 app.get('/data', (req, res) => {
     const stock = req.query.stock || 'SP';
@@ -29,4 +29,5 @@ app.get('/data', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}.`);
+    console.log(`URL: http://localhost:${port}`)
 });
