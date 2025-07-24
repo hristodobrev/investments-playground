@@ -1,0 +1,36 @@
+<%- contentFor('body') %>
+    
+<p>Hello!</p>
+
+<p>
+    <input id="search" type="text">
+    <ul id="result"></ul>
+</p>
+
+<script>
+    (function() {
+        let latestSearch = '';
+        const input = document.getElementById('search');
+        const result = document.getElementById('result');
+        let timer = 0;
+        input.onkeyup = ev => {
+            const val = input.value?.trim();
+            
+            if (val && val != latestSearch) {
+                latestSearch = val;
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fetch(`/search?search=${val}`).then(r => r.json()).then(res => {
+                        console.log(res);
+                        result.innerHTML = '';
+                        for (let stock of res) {
+                            const el = document.createElement(`p`);
+                            el.innerText = stock.shortname;
+                            result.appendChild(el);
+                        }
+                    });
+                }, 300);
+            }
+        };
+    })();
+</script>

@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- contentFor('body') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Document</title>
-</head>
-
-<body>
-    <div style="max-width: 600px; margin: auto">
+<div style="max-width: 600px; margin: auto">
         <form id="search-form" style="display: flex; align-items: end">
             <div>Stock <br> <input style="width: 90%" type="text" id="stock" value="SP"></div>
             <div>Amount <br><input style="width: 90%" type="text" id="amount" value="100"> </div>
@@ -52,7 +44,9 @@
 
                 document.getElementById('error').style.display = 'none';
 
-                fetch(`/data?stock=${stock}&period=${period}`)
+                fetch('/search').then(r => r.json()).then(console.log);
+
+                fetch(`/historical?stock=${stock}&period=${period}`)
                     .then(r => r.json())
                     .then(response => {
                         document.getElementById('result').style.display = 'block';
@@ -122,6 +116,3 @@
             }
         })();
     </script>
-</body>
-
-</html>
